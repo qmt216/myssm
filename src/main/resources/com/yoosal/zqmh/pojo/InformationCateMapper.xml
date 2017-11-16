@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yoosal.zqmh.dao.InformationCateMapper">
+    <resultMap id="BaseResultMap" type="com.yoosal.zqmh.pojo.InformationCate" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="order_" property="order" jdbcType="INTEGER" />
+        <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="enable" property="enable" jdbcType="INTEGER" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, name, order_, parent_id, create_time, enable, url
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_information_cate
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from t_information_cate
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.yoosal.zqmh.pojo.InformationCate" >
+        insert into t_information_cate (id, name, order_,
+        parent_id, create_time, enable,
+        url)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER},
+        #{parentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=INTEGER},
+        #{url,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.yoosal.zqmh.pojo.InformationCate" >
+        insert into t_information_cate
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="order != null" >
+                order_,
+            </if>
+            <if test="parentId != null" >
+                parent_id,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="enable != null" >
+                enable,
+            </if>
+            <if test="url != null" >
+                url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="order != null" >
+                #{order,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null" >
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null" >
+                #{enable,jdbcType=INTEGER},
+            </if>
+            <if test="url != null" >
+                #{url,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yoosal.zqmh.pojo.InformationCate" >
+        update t_information_cate
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="order != null" >
+                order_ = #{order,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null" >
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null" >
+                enable = #{enable,jdbcType=INTEGER},
+            </if>
+            <if test="url != null" >
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.yoosal.zqmh.pojo.InformationCate" >
+        update t_information_cate
+        set name = #{name,jdbcType=VARCHAR},
+        order_ = #{order,jdbcType=INTEGER},
+        parent_id = #{parentId,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        enable = #{enable,jdbcType=INTEGER},
+        url = #{url,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_information_cate order by #{orderBy} limit #{start},#{limit}
+    </select>
+
+    <select id="queryAllCount" resultType="java.lang.Integer">
+    select count(id) as id from t_information_cate
+    </select>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yoosal.zqmh.pojo.WhereCase" >
+        select
+        <include refid="Base_Column_List" />
+        from t_information_cate
+        <where >
+            <if test="condition!=null" >
+                <trim prefix="(" suffix=")" prefixOverrides="and" >
+                    and ${condition}
+                </trim>
+            </if>
+        </where>
+        <if test="order != null" >
+            order by ${order}
+        </if>
+        <if test="start != null" >
+            limit ${start},${limit}
+        </if>
+    </select>
+
+    <select id="countByExample" parameterType="com.yoosal.zqmh.pojo.WhereCase" resultType="java.lang.Integer" >
+        select count(*) from t_information_cate
+        <where >
+            <if test="condition!=null" >
+                <trim prefix="(" suffix=")" prefixOverrides="and" >
+                    and ${condition}
+                </trim>
+            </if>
+        </where>
+    </select>
+</mapper>

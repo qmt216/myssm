@@ -1,0 +1,6 @@
+.nav{height:54px;}
+.nav ul{margin:0 auto;}
+.nav li{ float:left;background:url(../images/title_normal_bg.jpg) no-repeat;display: inline;}
+.nav li a:link,.nav li a:visited{display:inline-block; width:172px; height:54px; line-height:54px; color: #462f11; font-size:20px; text-align:center;/*font-weight: bold;*/}
+.nav li .cur{background:url(../images/title_hover_bg.jpg) no-repeat;}
+.nav li a:hover{background:url(../images/title_hover_bg.jpg) no-repeat;}

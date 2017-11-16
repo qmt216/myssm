@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yoosal.zqmh.dao.InformationMapper">
+    <resultMap id="BaseResultMap" type="com.yoosal.zqmh.pojo.Information">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="cate_id" property="cateId" jdbcType="INTEGER"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="fr" property="fr" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="name_style" property="nameStyle" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.yoosal.zqmh.pojo.Information" extends="BaseResultMap">
+        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, cate_id, fr,author, user_id, create_time, sort, name_style
+  </sql>
+    <sql id="Blob_Column_List">
+    content
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_information
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.yoosal.zqmh.pojo.Information">
+    insert into t_information (id, name, cate_id,
+    author, fr, user_id, create_time,
+    sort, name_style, content
+    )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{cateId,jdbcType=INTEGER},
+    #{author,jdbcType=VARCHAR},#{fr,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+    #{sort,jdbcType=INTEGER}, #{nameStyle,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+    )
+  </insert>
+    <insert id="insertSelective" parameterType="com.yoosal.zqmh.pojo.Information">
+        insert into t_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="cateId != null">
+                cate_id,
+            </if>
+            <if test="author != null">
+                author,
+            </if>
+            <if test="fr != null">
+                fr,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="nameStyle != null">
+                name_style,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="cateId != null">
+                #{cateId,jdbcType=INTEGER},
+            </if>
+            <if test="author != null">
+                #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="fr != null">
+                #{fr,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="nameStyle != null">
+                #{nameStyle,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yoosal.zqmh.pojo.Information">
+        update t_information
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="cateId != null">
+                cate_id = #{cateId,jdbcType=INTEGER},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="fr != null">
+                fr = #{fr,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="nameStyle != null">
+                name_style = #{nameStyle,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yoosal.zqmh.pojo.Information">
+    update t_information
+    set name = #{name,jdbcType=VARCHAR},
+    cate_id = #{cateId,jdbcType=INTEGER},
+    author = #{author,jdbcType=VARCHAR},
+    fr = #{fr,jdbcType=VARCHAR},
+    user_id = #{userId,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    sort = #{sort,jdbcType=INTEGER},
+    name_style = #{nameStyle,jdbcType=INTEGER},
+    content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="queryAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_information order by #{orderBy} limit #{start},#{limit}
+    </select>
+
+    <select id="queryAllCount" resultType="java.lang.Integer">
+    select count(id) as id from t_information
+  </select>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yoosal.zqmh.pojo.WhereCase">
+        select
+        <include refid="Base_Column_List"/>
+        from t_information
+        <where>
+            <if test="condition!=null">
+                <trim prefix="(" suffix=")" prefixOverrides="and">
+                    and ${condition}
+                </trim>
+            </if>
+        </where>
+        <if test="order != null">
+            order by ${order}
+        </if>
+        <if test="start != null">
+            limit ${start},${limit}
+        </if>
+    </select>
+
+    <select id="countByExample" parameterType="com.yoosal.zqmh.pojo.WhereCase" resultType="java.lang.Integer">
+        select count(*) from t_information
+        <where>
+            <if test="condition!=null">
+                <trim prefix="(" suffix=")" prefixOverrides="and">
+                    and ${condition}
+                </trim>
+            </if>
+        </where>
+    </select>
+</mapper>

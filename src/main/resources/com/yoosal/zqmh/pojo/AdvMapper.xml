@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yoosal.zqmh.dao.AdvMapper">
+    <resultMap id="BaseResultMap" type="com.yoosal.zqmh.pojo.Adv">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="position_id" property="positionId" jdbcType="INTEGER"/>
+        <result column="pic" property="pic" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="enable" property="enable" jdbcType="INTEGER"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, position_id, pic, url, create_time, enable,sort
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_adv
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_adv
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.yoosal.zqmh.pojo.Adv">
+    insert into t_adv (id, name, position_id, 
+      pic, url, create_time, 
+      enable,sort)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{positionId,jdbcType=INTEGER}, 
+      #{pic,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{enable,jdbcType=INTEGER},#{sort,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.yoosal.zqmh.pojo.Adv">
+        insert into t_adv
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="positionId != null">
+                position_id,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="enable != null">
+                enable,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="positionId != null">
+                #{positionId,jdbcType=INTEGER},
+            </if>
+            <if test="pic != null">
+                #{pic,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yoosal.zqmh.pojo.Adv">
+        update t_adv
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="positionId != null">
+                position_id = #{positionId,jdbcType=INTEGER},
+            </if>
+            <if test="pic != null">
+                pic = #{pic,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null">
+                enable = #{enable,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yoosal.zqmh.pojo.Adv">
+    update t_adv
+    set name = #{name,jdbcType=VARCHAR},
+      position_id = #{positionId,jdbcType=INTEGER},
+      pic = #{pic,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      sort = #{sort,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="queryAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_adv order by #{orderBy} limit #{start},#{limit}
+    </select>
+
+    <select id="queryAllCount" resultType="java.lang.Integer">
+    select count(id) as id from t_adv
+  </select>
+
+    <select id="getAdvByPosition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_adv
+        where position_id = #{positionId,jdbcType=INTEGER}
+        <if test="enable != null">
+            AND enable = #{enable,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yoosal.zqmh.pojo.WhereCase">
+        select
+        <include refid="Base_Column_List"/>
+        from t_adv
+        <where>
+            <if test="condition!=null">
+                <trim prefix="(" suffix=")" prefixOverrides="and">
+                    and ${condition}
+                </trim>
+            </if>
+        </where>
+        <if test="order != null">
+            order by ${order}
+        </if>
+        <if test="start != null">
+            limit ${start},${limit}
+        </if>
+    </select>
+
+    <select id="countByExample" parameterType="com.yoosal.zqmh.pojo.WhereCase" resultType="java.lang.Integer">
+        select count(*) from t_adv
+        <where>
+            <if test="condition!=null">
+                <trim prefix="(" suffix=")" prefixOverrides="and">
+                    and ${condition}
+                </trim>
+            </if>
+        </where>
+    </select>
+</mapper>

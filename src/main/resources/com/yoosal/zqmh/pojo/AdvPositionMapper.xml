@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yoosal.zqmh.dao.AdvPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.yoosal.zqmh.pojo.AdvPosition" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, code, height, width, enable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_adv_position
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_adv_position
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yoosal.zqmh.pojo.AdvPosition" >
+    insert into t_adv_position (id, name, code, 
+      height, width, enable
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{height,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, #{enable,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yoosal.zqmh.pojo.AdvPosition" >
+    insert into t_adv_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yoosal.zqmh.pojo.AdvPosition" >
+    update t_adv_position
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yoosal.zqmh.pojo.AdvPosition" >
+    update t_adv_position
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      height = #{height,jdbcType=INTEGER},
+      width = #{width,jdbcType=INTEGER},
+      enable = #{enable,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List"/>
+    from t_adv_position order by #{orderBy} limit #{start},#{limit}
+  </select>
+
+  <select id="queryAllCount" resultType="java.lang.Integer">
+    select count(id) as id from t_adv_position
+  </select>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yoosal.zqmh.pojo.WhereCase">
+        select
+        <include refid="Base_Column_List"/>
+        from t_adv_position
+        <where>
+            <if test="condition!=null">
+                <trim prefix="(" suffix=")" prefixOverrides="and">
+                    and ${condition}
+                </trim>
+            </if>
+        </where>
+        <if test="order != null">
+            order by ${order}
+        </if>
+        <if test="start != null">
+            limit ${start},${limit}
+        </if>
+    </select>
+
+    <select id="countByExample" parameterType="com.yoosal.zqmh.pojo.WhereCase" resultType="java.lang.Integer">
+        select count(*) from t_adv_position
+        <where>
+            <if test="condition!=null">
+                <trim prefix="(" suffix=")" prefixOverrides="and">
+                    and ${condition}
+                </trim>
+            </if>
+        </where>
+    </select>
+</mapper>
